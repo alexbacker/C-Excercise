@@ -102,9 +102,30 @@ void timeRemoveFrontVector(std::vector<Fraction<T> > &variableToProcess, int amo
     elapsed = (finish.tv_sec - start.tv_sec);
     elapsed += (finish.tv_nsec - start.tv_nsec) / 1000000000.0;
 
-    cout  << "Elapsed time " << elapsed << "  ||   Size of map is " << variableToProcess.size() << endl;
+    cout  << "Elapsed time " << elapsed << "  ||   Size of vector is " << variableToProcess.size() << endl;
 }
 
+/*
+ * remove map front
+ */
+ template <typename T, typename U>
+ void timeRemoveFrontMap(std::map<U, Fraction<T> > &variableToProcess, int amountToRemove)
+ {
+     struct timespec start, finish;
+     double elapsed;
+     clock_gettime(CLOCK_MONOTONIC, &start); // start timer
+     typename std::map<U, Fraction<T> >::iterator it;
+     for (int i = 0; i < amountToRemove; i++)
+     {
+         it = variableToProcess.find(i);
+         variableToProcess.erase(it);
+     }
+     clock_gettime(CLOCK_MONOTONIC, &finish); // end timer
+     elapsed = (finish.tv_sec - start.tv_sec);
+     elapsed += (finish.tv_nsec - start.tv_nsec) / 1000000000.0;
+ 
+     cout  << "Elapsed time " << elapsed << "    ||   Size of map is " << variableToProcess.size() << endl;
+ }
 /*
  * Remove list back
  */
@@ -146,7 +167,7 @@ void timeRemoveBackVector(std::vector<Fraction<T> > &variableToProcess, int amou
 }
 
 /*
- * remove vector back
+ * remove map back
  */
 template <typename T, typename U>
 void timeRemoveBackMap(std::map<U, Fraction<T> > &variableToProcess, int amountToRemove)
@@ -154,9 +175,12 @@ void timeRemoveBackMap(std::map<U, Fraction<T> > &variableToProcess, int amountT
     struct timespec start, finish;
     double elapsed;
     clock_gettime(CLOCK_MONOTONIC, &start); // start timer
-    for (int i = variableToProcess.size() - amountToRemove; i < variableToProcess.size(); i++)
+    typename std::map<U, Fraction<T> >::iterator it;
+    for (int i = variableToProcess.size() - amountToRemove*2; i 
+    < variableToProcess.size(); i++)
     {
-        variableToProcess.erase(i);
+        it = variableToProcess.find(i);
+        variableToProcess.erase(it);
     }
     clock_gettime(CLOCK_MONOTONIC, &finish); // end timer
     elapsed = (finish.tv_sec - start.tv_sec);

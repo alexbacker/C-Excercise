@@ -23,12 +23,13 @@ int main()
     /*erase front of containers*/
     timeRemoveFrontList(listToAdd, amountToErase);
     timeRemoveFrontVector(vectorToAdd, amountToErase);
+    timeRemoveFrontMap(mapToAdd, amountToErase);
     cout << endl;
 
     /*erase back of containers*/
     timeRemoveBackList(listToAdd, amountToErase);
     timeRemoveBackVector(vectorToAdd, amountToErase);
-    timeRemoveBackMap(mapToAdd, amountToErase * 4);
+    timeRemoveBackMap(mapToAdd, amountToErase);
 
     return 0;
 }
